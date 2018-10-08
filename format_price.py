@@ -9,24 +9,31 @@ def format_whole_part(whole_part):
 
 def format_fractional_part(fractional_part):
     fractional_part_normalized = abs(fractional_part.normalize())
-    return str(fractional_part_normalized)[1:]
+    dot_index = 1
+    return str(fractional_part_normalized)[dot_index:]
 
 
 def is_whole_number(number):
     return number % 1 == 0
 
 
-def format_price(price):
+def is_valid_price_input(price):
     try:
-        number = Decimal(str(price))
+        Decimal(str(price))
     except InvalidOperation:
-        # raise ValueError("Invalid price string")
+        return False
+    return True
+
+
+def format_price(price):
+    if not is_valid_price_input(price):
         return None
 
-    if is_whole_number(number):
-        formatted_price = format_whole_part(number.to_integral())
+    price_number = Decimal(str(price))
+    if is_whole_number(price_number):
+        formatted_price = format_whole_part(price_number.to_integral())
     else:
-        whole, fraction = divmod(number, 1)
+        whole, fraction = divmod(price_number, 1)
         formatted_price = "{}{}".format(
             format_whole_part(whole), format_fractional_part(fraction)
         )
@@ -43,5 +50,7 @@ def load_price():
 if __name__ == "__main__":
     price = load_price()
     formatted_price = format_price(price)
-    if formatted_price:
+    if formatted_price is not None:
         print(formatted_price)
+    else:
+        sys.exit("Invalid input")
