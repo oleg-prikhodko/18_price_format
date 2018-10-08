@@ -1,6 +1,15 @@
 # Price Formatter
 
-[TODO. There will be project description]
+Program formats arbitrary price input into more convenient representation
+
+# Quickstart
+
+Example of script launch on Linux, Python 3.5:
+
+```bash
+$ python format_price.py 112500.99000
+112 500.99
+```
 
 # Project Goals
 
