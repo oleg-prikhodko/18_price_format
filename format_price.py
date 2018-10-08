@@ -33,7 +33,8 @@ def format_price(price):
     if is_whole_number(price_number):
         formatted_price = format_whole_part(price_number.to_integral())
     else:
-        whole, fraction = divmod(price_number, 1)
+        divisor = 1
+        whole, fraction = divmod(price_number, divisor)
         formatted_price = "{}{}".format(
             format_whole_part(whole), format_fractional_part(fraction)
         )
