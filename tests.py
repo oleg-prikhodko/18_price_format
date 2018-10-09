@@ -17,14 +17,13 @@ class TestPriceFormatter(unittest.TestCase):
     def test_format_float_price(self):
         self.assertEqual(format_price(0.0), "0")
         self.assertEqual(format_price(1000.0000), "1 000")
-        self.assertEqual(format_price(100000.325235), "100 000.325235")
-        self.assertEqual(format_price(-77.234), "-77.234")
+        self.assertEqual(format_price(100000.325235), "100 000.33")
+        self.assertEqual(format_price(-77.234), "-77.23")
         self.assertEqual(format_price(5.1700000), "5.17")
-        self.assertEqual(format_price(pi), str(pi))
 
     def test_format_str_price(self):
         self.assertEqual(format_price("123"), "123")
-        self.assertEqual(format_price("1000.124500"), "1 000.1245")
+        self.assertEqual(format_price("1000.124500"), "1 000.12")
         self.assertEqual(format_price("-1230000"), "-1 230 000")
         self.assertIsNone(format_price("a12444"))
         self.assertIsNone(format_price("324.444a"))
