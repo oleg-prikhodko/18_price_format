@@ -6,7 +6,7 @@ from decimal import Decimal, InvalidOperation
 def is_valid_price_input(price):
     try:
         Decimal(price)
-    except InvalidOperation:
+    except (InvalidOperation, TypeError):
         return False
     return True
 
