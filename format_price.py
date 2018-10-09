@@ -3,20 +3,6 @@ import sys
 from decimal import Decimal, InvalidOperation
 
 
-def format_whole_part(whole_part):
-    return "{:,}".format(whole_part).replace(",", " ")
-
-
-def format_fractional_part(fractional_part):
-    fractional_part_normalized = abs(fractional_part.normalize())
-    dot_index = 1
-    return str(fractional_part_normalized)[dot_index:]
-
-
-def is_whole_number(number):
-    return number % 1 == 0
-
-
 def is_valid_price_input(price):
     try:
         Decimal(str(price))
@@ -29,16 +15,10 @@ def format_price(price):
     if not is_valid_price_input(price):
         return None
 
-    price_number = Decimal(str(price))
-    if is_whole_number(price_number):
-        formatted_price = format_whole_part(price_number.to_integral())
-    else:
-        divisor = 1
-        whole, fraction = divmod(price_number, divisor)
-        formatted_price = "{}{}".format(
-            format_whole_part(whole), format_fractional_part(fraction)
-        )
-    return formatted_price
+    float_price = float(price)
+    return (
+        "{:,.2f}".format(float_price).replace(",", " ").rstrip("0").rstrip(".")
+    )
 
 
 def load_price():
