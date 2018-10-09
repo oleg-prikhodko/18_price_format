@@ -5,7 +5,7 @@ from decimal import Decimal, InvalidOperation
 
 def is_valid_price_input(price):
     try:
-        Decimal(str(price))
+        Decimal(price)
     except InvalidOperation:
         return False
     return True
@@ -21,7 +21,7 @@ def format_price(price):
     )
 
 
-def load_price():
+def get_price_from_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("price")
     arguments = parser.parse_args()
@@ -29,7 +29,7 @@ def load_price():
 
 
 if __name__ == "__main__":
-    price = load_price()
+    price = get_price_from_arguments()
     formatted_price = format_price(price)
     if formatted_price is not None:
         print(formatted_price)
