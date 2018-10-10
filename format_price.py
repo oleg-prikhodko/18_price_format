@@ -1,21 +1,12 @@
 import argparse
 import sys
-from decimal import Decimal, InvalidOperation
-
-
-def is_valid_price_input(price):
-    try:
-        Decimal(price)
-    except (InvalidOperation, TypeError):
-        return False
-    return True
 
 
 def format_price(price):
-    if not is_valid_price_input(price):
+    try:
+        float_price = float(price)
+    except ValueError:
         return None
-
-    float_price = float(price)
     return (
         "{:,.2f}".format(float_price).replace(",", " ").rstrip("0").rstrip(".")
     )
