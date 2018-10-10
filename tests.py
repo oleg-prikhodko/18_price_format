@@ -21,8 +21,6 @@ class PriceFormatterTestCase(unittest.TestCase):
     def test_zero_price(self):
         self.assertEqual(format_price(0), "0")
         self.assertEqual(format_price(0.0), "0")
-        self.assertEqual(format_price("-0"), "0")
-        self.assertEqual(format_price("-0.0"), "0")
 
     def test_positive_float_price(self):
         self.assertEqual(format_price(1000.0000), "1 000")
@@ -60,14 +58,6 @@ class PriceFormatterTestCase(unittest.TestCase):
         self.assertIsNone(format_price(lambda a: a))
         self.assertIsNone(format_price(True))
         self.assertIsNone(format_price(False))
-
-    def test_special_float_values(self):
-        self.assertIsNone(format_price("infinity"))
-        self.assertIsNone(format_price("inf"))
-        self.assertIsNone(format_price("nan"))
-        self.assertIsNone(format_price(inf))
-        self.assertIsNone(format_price(-inf))
-        self.assertIsNone(format_price(nan))
 
 
 if __name__ == "__main__":
