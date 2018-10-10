@@ -5,7 +5,7 @@ import sys
 def format_price(price):
     try:
         float_price = float(price)
-    except ValueError:
+    except (ValueError, TypeError):
         return None
     return (
         "{:,.2f}".format(float_price).replace(",", " ").rstrip("0").rstrip(".")
