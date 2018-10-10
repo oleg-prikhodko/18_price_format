@@ -1,4 +1,5 @@
 import unittest
+from math import inf, nan, pi
 
 from format_price import format_price
 
@@ -28,18 +29,28 @@ class PriceFormatterTestCase(unittest.TestCase):
         self.assertEqual(format_price(100000.325235), "100 000.33")
         self.assertEqual(format_price(5.1700000), "5.17")
         self.assertEqual(format_price("1000.124500"), "1 000.12")
+        self.assertEqual(format_price(pi), "3.14")
+        self.assertEqual(format_price(.1), "0.1")
 
     def test_negative_float_price(self):
         self.assertEqual(format_price(-77.234), "-77.23")
         self.assertEqual(format_price(-1000.333), "-1 000.33")
         self.assertEqual(format_price(-10000.000), "-10 000")
+        self.assertEqual(format_price("-.333"), "-0.33")
 
-    def test_incorect_price_value(self):
+    def test_string_with_letters(self):
         self.assertIsNone(format_price("a12444"))
         self.assertIsNone(format_price("324.444a"))
         self.assertIsNone(format_price("123.6ggg7"))
         self.assertIsNone(format_price("ABC"))
+
+    def test_incorrect_digit_string(self):
         self.assertIsNone(format_price("123.000.555"))
+        self.assertIsNone(format_price("12+35"))
+        self.assertIsNone(format_price("1123-39+3--"))
+        self.assertIsNone(format_price("09.99-7"))
+
+    def test_incorrect_price_type(self):
         self.assertIsNone(format_price(None))
         self.assertIsNone(format_price(object()))
         self.assertIsNone(format_price(list()))
@@ -47,6 +58,16 @@ class PriceFormatterTestCase(unittest.TestCase):
         self.assertIsNone(format_price(tuple()))
         self.assertIsNone(format_price(set()))
         self.assertIsNone(format_price(lambda a: a))
+        self.assertIsNone(format_price(True))
+        self.assertIsNone(format_price(False))
+
+    def test_special_float_values(self):
+        self.assertIsNone(format_price("infinity"))
+        self.assertIsNone(format_price("inf"))
+        self.assertIsNone(format_price("nan"))
+        self.assertIsNone(format_price(inf))
+        self.assertIsNone(format_price(-inf))
+        self.assertIsNone(format_price(nan))
 
 
 if __name__ == "__main__":
