@@ -7,6 +7,10 @@ def format_price(price):
         float_price = float(price)
     except (ValueError, TypeError):
         return None
+
+    if float_price == 0:
+        return "0"
+
     return (
         "{:,.2f}".format(float_price).replace(",", " ").rstrip("0").rstrip(".")
     )
